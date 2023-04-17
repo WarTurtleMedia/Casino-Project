@@ -1,231 +1,81 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <Windows.h>
+#include "SlotMachine.h"
 
 using namespace std;
 
+
+
 int main()
 {
-
-    int playyes = 1;
-    int playno = 0;
-    int playagain = 1;
-
-    int xout = 0;
-
-    int jackpot = 1000;
-    int playermoney = 2000;
-
-    const int eqaulspin = 3;
-
-
-    // 
-    const int slotstwo = 2;
-    const int slotsthree = 3;
-    const int slotsfour = 4;
-    const int slotsfive = 5;
-    const int slotssix = 6;
-    const int slots10x = 7;
-    const string slotsjackpot = "! ! - JACKPOT - ! !";
+    //Menu & Play Again
+    bool playagain = 1;
+    int gameselect; 
+    //Player Money Variables 
+    int playerstartmoney = 2000;
+    int playermoney;
+    int playermoney1; 
+    playermoney = playerstartmoney;
+    int jackpotpool = rand() % 7777 + 3333; 
+    bool continuegame = true;
 
 
+    while (continuegame == true) {
+        cout << R"(
+    --WELCOME TO PATRICKS TOTALLY LEGAL C++ CASINO--
+                  ____
+                 /\' .\    _____
+                /: \___\  / .  /\
+                \' / . / /____/..\
+                 \/___/  \'  '\  /
+                          \'__'\/     
 
-    while (playagain != playno)//Play Again Loop - Restarts the program and generates a new number whilse wiping old data
-    {
+               -PLEASE SELECT A GAME- 
+    1: Slot Machine 
+    2: Roulette Wheel
+    3: BlackJack
+    4: Credits
 
-        int playerbet = 0;
-        cout << "Remaining Coins : " << playermoney << "\nPlease Enter a Bet : ";
-        cin >> playerbet;
-        playermoney = playermoney - playerbet;
+    5: EXIT 
+            )" << '\n'; //Creating the Menu Welcome Message & ASCII Art 
+        cout << "SELECTION: ";
+        cin >> gameselect;
+        cout << flush; // "Flushing" the console to avoid hundreds of lines of text and provide a better end user experience 
+        system("CLS");
 
-
-        srand(time(0));
-        int randnum1 = (rand() % 99) + 1;
-        int randnum2 = (rand() % 99) + 1;
-        int randnum3 = (rand() % 99) + 1;
-
-
-
-        //cout << randnum1 << "\n" << randnum2 << "\n" << randnum3 << "\n"; // Test Output 
-
-
-
-
-
-        if (randnum1 >= 1 && randnum1 <= 19) //19% Chance to output '2'
-        {
-            randnum1 = slotstwo;
-            cout << slotstwo << " ";
-
+        if (gameselect == 1) {
+            SlotSpin(playermoney, jackpotpool);
+        }
+        else if (gameselect == 2) {
 
         }
-        else if (randnum1 >= 20 && randnum1 <= 38) //19% Chance to output '3'
-        {
-            randnum1 = slotsthree;
-
-            cout << slotsthree << " ";
+        else if (gameselect == 3) {
 
         }
-
-
-        else if (randnum1 >= 39 && randnum1 <= 57) //19% Chance to output '3'
-        {
-            randnum1 = slotsfour;
-            cout << slotsfour << " ";
-
+        else if (gameselect == 4) {
 
         }
+        else if (gameselect == 5) {
 
-        else if (randnum1 >= 58 && randnum1 <= 76) //19% Chance to output '3'
-        {
-            randnum1 = slotsfive;
-            cout << slotsfive << " ";
-
-
-        }
-
-        else if (randnum1 >= 77 && randnum1 <= 95) //19% Chance to output '3'
-        {
-            cout << slotssix << " ";
-
-
-        }
-
-        else if (randnum1 >= 96 && randnum1 <= 99) //19% Chance to output '3'
-        {
-            cout << slots10x << " ";
-
-
-        }
-
-        else if (randnum1 == 100) //1% Chance to output '7'
-        {
-            cout << slotsjackpot << " ";
-
-        }
-
-
-
-
-
-
-
-        if (randnum2 >= 1 && randnum2 <= 19) //19% Chance to output '2'
-        {
-            cout << slotstwo << " ";
-
-
-        }
-        else if (randnum2 >= 20 && randnum2 <= 38) //19% Chance to output '3'
-        {
-            cout << slotsthree << " ";
-
-        }
-
-        else if (randnum2 >= 39 && randnum2 <= 57) //19% Chance to output '3'
-        {
-            cout << slotsfour << " ";
-
-
-        }
-
-        else if (randnum2 >= 58 && randnum2 <= 76) //19% Chance to output '3'
-        {
-            cout << slotsfive << " ";
-
-
-        }
-
-        else if (randnum2 >= 77 && randnum2 <= 95) //19% Chance to output '3'
-        {
-            cout << slotssix << " ";
-
-
-        }
-
-        else if (randnum2 >= 96 && randnum2 <= 99) //19% Chance to output '3'
-        {
-            cout << slots10x << " ";
-
-
-        }
-
-        else if (randnum2 == 100) //1% Chance to output '7'
-        {
-            cout << slotsjackpot << " ";
-
-        }
-
-
-
-
-
-        if (randnum3 >= 1 && randnum3 <= 19) //19% Chance to output '2'
-        {
-            cout << slotstwo << " ";
-
-
-        }
-        else if (randnum3 >= 20 && randnum3 <= 38) //19% Chance to output '3'
-        {
-            cout << slotsthree << " ";
-
-        }
-
-        else if (randnum3 >= 39 && randnum3 <= 57) //19% Chance to output '3'
-        {
-            cout << slotsfour << " ";
-
-
-        }
-
-        else if (randnum3 >= 58 && randnum3 <= 76) //19% Chance to output '3'
-        {
-            cout << slotsfive << " ";
-
-
-        }
-
-        else if (randnum3 >= 77 && randnum3 <= 95) //19% Chance to output '3'
-        {
-            cout << slotssix << " ";
-
-
-        }
-
-        else if (randnum3 >= 96 && randnum3 <= 99) //19% Chance to output '3'
-        {
-            cout << slots10x << " ";
-
-
-        }
-
-        else if (randnum3 == 100) //1% Chance to output '7'
-        {
-            cout << slotsjackpot << " ";
-
-        }
-
-
-        if (randnum1 == randnum2 or randnum1 == randnum3 or randnum3 == randnum2)
-        {
-            playermoney = playermoney + (playerbet * 3);
-
-            cout << "\n\n++WIN++\n";
-            cout << "BET REFUNDED\n";
-            cout << "Money; " << playermoney << "\n";
-            cout << "Spin Again? : ";
-            cin >> playagain;
-            xout = 0;
-            system("CLS");
         }
         else {
+            cout << "Invalid Selection Please Enter an Option from the list \n";
+            for (int i = 5; i >= 0; --i) { //Countdown Timer to ensure the player reads the message (5 Seconds)
+                cout << i << " ";
+                Sleep(1000);
 
-            cout << "\nNO WIN\n";
-            cin >> playagain;
-            xout = 0;
-            system("CLS");
+                if (i == 0) {
+                    system("CLS"); //Clears the screen once the timer hits 0 
+                   
+                    
+                }
+            }
         }
+
+
+        return 0;
     }
-    return 0;
+    
 }
