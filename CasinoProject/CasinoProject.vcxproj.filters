@@ -23,5 +23,8 @@
     <ClInclude Include="SlotMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlackJack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
     while(slotplayagain == true )
     {
-        cout << jackpotpool; 
+        cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
         cout << "Remaining Balance : " << playermoney << "\nPlease Enter a Bet : ";
         cin >> playerbet;
        
@@ -192,9 +192,12 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             }
             else 
             {
+                system("CLS");
                 jackpotpool = jackpotpool + playerbet; 
+                cout << "LOSS\n";
                 cout << jackpotpool;
-                cout << "Remaining Balance : " << playermoney; 
+                cout << "\nRemaining Balance : " << playermoney << "\nSpin Again?: ";
+                
                 cin >> slotplayagain; 
                 system("CLS");
             }
@@ -216,7 +219,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
         }
         }
     }
-    return playermoney; 
+    return playermoney, jackpotpool; 
 }
 
 
