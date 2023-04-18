@@ -4,7 +4,8 @@
 #include <Windows.h>
 #include "SlotMachine.h"
 #include "Blackjack.h"
-// TEST 
+
+
 using namespace std;
 
 
@@ -51,11 +52,11 @@ int main()
             system("CLS");
         }
         else if (gameselect == 2) {
-            BlackJack(playermoney);
-            system("CLS");
+            
         }
         else if (gameselect == 3) {
-
+            BlackJack(playermoney);
+            //system("CLS");
         }
         else if (gameselect == 4) {
             cout << "Created by Patrick Gleeson\n";
