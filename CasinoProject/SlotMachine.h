@@ -7,10 +7,6 @@ using namespace std;
 int SlotSpin(int& playermoney, int& jackpotpool) {
     
     // Creating the Random Numbers 
-    srand(time(0));
-    int randnum1 = (rand() % 99) + 1;
-    int randnum2 = (rand() % 99) + 1;
-    int randnum3 = (rand() % 99) + 1;
 
     bool slotplayagain = true; 
 
@@ -28,8 +24,21 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
     
     int playerbet = 0;
 
-    while(slotplayagain == true )
-    {
+
+    while (slotplayagain == true){
+        
+        char playwin[7] = { '+','+','W','I','N','+','+'};
+        srand(time(0));
+       int randnum1 = (rand() % 99) + 1;
+       int randnum2 = (rand() % 99) + 1;
+       int randnum3 = (rand() % 99) + 1;
+
+
+     //  int randnum1 = 96; 
+     //  int randnum2 = 96;
+     //  int randnum3 = 96;
+
+
         cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
         cout << "Remaining Balance : " << playermoney << "\nPlease Enter a Bet : ";
         cin >> playerbet;
@@ -146,11 +155,19 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 randnum3 = 100;
                 cout << slotsjackpot << " ";
             }
+            
 
+            
             if (randnum1 == 7 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 7 then player earns back 10x their bet
             {
-                cout << "\n\n++WIN++\n\n";
-                cout << "++! TRIPLE SEVENS !++\n";
+                cout << "\n";
+                for (int i = 0; i < 7; ++i)
+                {
+                    Sleep(750);
+                    cout << playwin[i];
+                }
+
+                cout << "\n++! TRIPLE SEVENS !++\n";
                 cout << "BET 10X: " << playerbet * 10 << "\n";
                 playermoney = playermoney + (playerbet * 10);
                 cout << "Balance: " << playermoney << "\n";
