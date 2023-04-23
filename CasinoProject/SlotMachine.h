@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <Windows.h>
+//#include <Windows.h>
 using namespace std; 
 
 int SlotSpin(int& playermoney, int& jackpotpool) {
@@ -23,11 +23,15 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
     int outputright = 0;
     
     int playerbet = 0;
+    char playwin[7] = { '+','+','W','I','N','+','+'};
+    
+    
+    int spincounter = 0; 
 
 
     while (slotplayagain == true){
         
-        char playwin[7] = { '+','+','W','I','N','+','+'};
+       char playwin[7] = { '+','+','W','I','N','+','+'};
         srand(time(0));
        int randnum1 = (rand() % 99) + 1;
        int randnum2 = (rand() % 99) + 1;
@@ -41,8 +45,22 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
         cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
         cout << "Remaining Balance : " << playermoney << "\nPlease Enter a Bet : ";
-        cin >> playerbet;
-       
+        //cin >> playerbet;
+        
+        while (!(cin >> playerbet)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            system("CLS");
+            cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
+            cout << "\n\nPLEASE ENTER A NUMBER NOT WORDS OR SPECIAL CHARACTERS\n";
+            cout << "Remaining Balance : " << playermoney << "\nPlease Enter a Bet : ";
+            
+        }
+
+        system("CLS");
+        cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
+        cout << "Remaining Balance : " << playermoney << "\nYour Bet: " << playerbet << "\n\n";
+        
         if (playerbet > 0 && playerbet <= playermoney) {
             playermoney = playermoney - playerbet; //Removing players bet from their total balance 
        
@@ -155,9 +173,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 randnum3 = 100;
                 cout << slotsjackpot << " ";
             }
-            
-
-            
+           
             if (randnum1 == 7 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 7 then player earns back 10x their bet
             {
                 cout << "\n";
@@ -170,10 +186,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 cout << "\n++! TRIPLE SEVENS !++\n";
                 cout << "BET 10X: " << playerbet * 10 << "\n";
                 playermoney = playermoney + (playerbet * 10);
-                cout << "Balance: " << playermoney << "\n";
-                cout << "Spin Again?: ";
-                cin >> slotplayagain;
-                system("CLS");
+                
             }
             else if (randnum1 == 100 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 100 then player wins the jackpot 
             {
@@ -181,20 +194,14 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 cout << "++! ! - JACKPOT - ! !++\n";
                 cout << "JACKPOT: " << jackpotpool << "\n";
                 playermoney = playermoney + jackpotpool;
-                cout << "Balance: " << playermoney << "\n";
-                cout << "Spin Again?: ";
-                cin >> slotplayagain;
-                system("CLS");
+               
             }
             else if (randnum1 == randnum2 && randnum1 == randnum3 && randnum1 != 7 && randnum1 != 100) //If three numbers are Equal then player earns back 5x their bet
             {
                 cout << "\n\n++WIN++\n";
                 cout << "BET 5X:" << playerbet * 5 << "\n";
                 playermoney = playermoney + (playerbet * 5);
-                cout << "Balance: " << playermoney << "\n";
-                cout << "Spin Again?: ";
-                cin >> slotplayagain;
-                system("CLS");
+                
             }
   
             else if (randnum1 == randnum2 or randnum1 == randnum3 or randnum3 == randnum2) //If two numbers are Equal then player earns back 3x their bet
@@ -202,27 +209,20 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 cout << "\n\n++WIN++\n\n";
                 cout << "BET 3X: " << playerbet * 3 << "\n";
                 playermoney = playermoney + (playerbet * 3);
-                cout << "Balance: " << playermoney << "\n";
-                cout << "Spin Again?: ";
-                cin >> slotplayagain;         
-                system("CLS");
+              
             }
             else 
             {
-                system("CLS");
+        
                 jackpotpool = jackpotpool + playerbet; 
-                cout << "LOSS\n";
+                cout << "\nLOSS\n";
                 cout << jackpotpool;
-                cout << "\nRemaining Balance : " << playermoney << "\nSpin Again?: ";
-                
-                cin >> slotplayagain; 
-                system("CLS");
             }
         }
         else {
         
         cout << "--ERROR--\n" << playerbet << " Is a invalid ammount\n";
-        cout << "Please enter a valid ammount between 0 & " << playermoney << "\n";
+        cout << "Please enter a valid ammount between 1 & " << playermoney << "\n";
         cout << "Procced in ";
 
         for (int i = 5; i >= 0; --i) { //Countdown Timer to ensure the player reads the message (5 Seconds)
@@ -231,12 +231,26 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             
             if (i == 0) {
                 system("CLS"); //Clears the screen once the timer hits 0 
-               playerbet;
+                playerbet;
+                }
             }
         }
+
+        cout << "\nRemaining Balance : " << playermoney;
+        if (playermoney > 0) {
+            cout << "\nPress Space to place the same bet again or enter a new bet" << "\n Bet : ";
+            cin >> slotplayagain;
+            system("CLS");
         }
+        else {
+            cout << "YOU ARE OUT OF MONEY PLEASE COME AGAIN";
+            Sleep(10000);
+            system("CLS");
+            return playermoney, jackpotpool;
+        }
+      
     }
-    return playermoney, jackpotpool; 
+    //return playermoney, jackpotpool; 
 }
 
 

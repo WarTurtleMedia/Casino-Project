@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <Windows.h>
+//#include <Windows.h>
 #include "General.h"
 
 
