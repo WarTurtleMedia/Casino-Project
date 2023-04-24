@@ -10,6 +10,8 @@ using namespace std;
 
 int main()
 {
+    
+
     //Menu & Play Again
     //bool playagain = 1;
     //Player Money Variables 
@@ -23,10 +25,11 @@ int main()
     bool continuegame = true;
     int gameselect;
     //Loadbar();
-
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
     while (continuegame == true) {
-     
+        
+        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
         cout << R"(
     --WELCOME TO PATRICKS TOTALLY LEGAL C++ CASINO--
                   ____
@@ -51,12 +54,10 @@ int main()
             cout << "\n    PLEASE ENTER A NUMBER NOT WORDS OR SPECIAL CHARACTERS\n";
             cout << "\n    SELECTION: ";
         }
-
         if (gameselect == 1) {
-            //Loadbar();
+            Loadbar();
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
             Sleep(100);
             system("CLS");
             SlotSpin(playermoney, jackpotpool);

@@ -22,6 +22,15 @@ void Loadbar() {
 	system("CLS");
 
 }
+
+void SetPos(int _x, int _y)
+{
+	COORD TempCord;
+	TempCord.X = _x;
+	TempCord.Y = _y;
+
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), TempCord);
+}
 /*int SumOfArray(int playerhand[5]) {
 
 	int playerhand[5];
