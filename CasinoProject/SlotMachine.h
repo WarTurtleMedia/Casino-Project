@@ -99,44 +99,38 @@ int CheckSlotWin(int& randnum1, int& randnum2, int& randnum3)
 }
 
 int SlotSpin(int& playermoney, int& jackpotpool) {
-    
-    // Creating the Random Numbers 
 
     bool slotplayagain = true; 
 
-    const int slotstwo = 2;
-    const int slotsthree = 3;
-    const int slotsfour = 4;
-    const int slotsfive = 5;
-    const int slotssix = 6;
-    const int slots10x = 7;
-    const string slotsjackpot = "! ! - JACKPOT - ! !";
-
-    int outputleft = 0;
-    int outpoutmid = 0;
-    int outputright = 0;
-    
     int playerbet = 0;
     char playwin[7] = { '+','+','W','I','N','+','+'};
     
-    int spinerresult[3]; //Arrays for the Slot spinner 
-    int spinneranimation[3]; 
+    int spinerresult[3]; //Array for Final Randomly generated numbers (Detirmines player outcome)
+    int spinneranimation[3]; //Array for the Randomly Generated Spin animation 
+   
+                             
+    //PLAYER STATS
+    int spincounter = 0; //MOVE TO MAIN 
+    int PlayerTotalLoss = 0;
+    int PlayerTotalWin = 0; 
+    int PlayerTotalBetLifetime = 0;
+    int PlayerBagelsBought = 0; 
     
-    int spincounter = 0; //Keeps Track Of spins the player has had
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    while (slotplayagain == true){
-        
-       
-       
-       srand(time(0));
-       int randnum1 = (rand() % 99) + 1;
+    while (slotplayagain == true)
+    {
+
+       // Creating the Random Numbers 
+       srand(time(0)); 
+       int randnum1 = (rand() % 99) + 1; //Slot Machine Numbers 
        int randnum2 = (rand() % 99) + 1;
        int randnum3 = (rand() % 99) + 1;
 
-       int animationrand1 = (rand() % 7) + 2;
+       int animationrand1 = (rand() % 7) + 2; //Slot Machine randomly generated numbers for Spinning effect
        int animationrand2 = (rand() % 7) + 2;
        int animationrand3 = (rand() % 7) + 2;
+
        spinneranimation[1] = animationrand1;
        spinneranimation[2] = animationrand2;
        spinneranimation[3] = animationrand3;
@@ -151,8 +145,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
         cout << "\n\n\n\n\n\n\n";
         cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
         cout << "Remaining Balance : " << playermoney << "\nYour Bet: ";
-        //cin >> playerbet;
-        
+   
         while (!(cin >> playerbet)) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -163,12 +156,11 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
             cout << "\n\nPLEASE ENTER A NUMBER NOT WORDS OR SPECIAL CHARACTERS\n";
             cout << "Remaining Balance : " << playermoney << "\nYour Bet: ";
-            
         }
 
         system("CLS");
        
-        if (playerbet > 0 && playerbet <= playermoney) {
+        if (playerbet > 0 && playerbet <= playermoney) { //Error Checking to ensure players bet is a valid number bewteen 0 and their Max Chip ammount 
             playermoney = playermoney - playerbet; //Removing players bet from their total balance 
             
             for (int i = 0; i < 3; ++i)
@@ -258,10 +250,8 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 return playermoney, jackpotpool;
             }
 
-
-
         }
-        else {
+        else { //Error Checking to ensure players bet is a valid number bewteen 0 and their Max Chip ammount 
        
         cout << "--ERROR--\n" << playerbet << " Is a invalid ammount\n";
         cout << "Please enter a valid ammount between 1 & " << playermoney << "\n";
@@ -277,9 +267,9 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 }
             }
         }
-   
     }
-    //return playermoney, jackpotpool; 
+    return playermoney, jackpotpool;
+
 }
 
 

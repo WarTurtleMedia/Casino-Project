@@ -25,37 +25,30 @@ int main()
     bool continuegame = true;
     int gameselect;
     //Loadbar();
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
 
     while (continuegame == true) {
         
-        SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
-        cout << R"(
-    --WELCOME TO PATRICKS TOTALLY LEGAL C++ CASINO--
-                  ____
-                 /\' .\    _____
-                /: \___\  / .  /\
-                \' / . / /____/..\
-                 \/___/  \'  '\  /
-                          \'__'\/     
+        SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY); //Sets the Text to Light Red
+        DrawMainMenu(); //Function to Draw the Main Menu
 
-               -PLEASE SELECT A GAME- 
-    1: Slot Machine
-    2: BlackJack
-    3: Credits
-
-    4: EXIT 
-            )" << '\n'; //Creating the Menu Welcome Message & ASCII Art 
-        cout << "\n    SELECTION: ";
-
-        while (!(cin >> gameselect)) { 
+        while (!(cin >> gameselect)) { //Error checking for strings or characters 
             cin.clear();    
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout << "\n    PLEASE ENTER A NUMBER NOT WORDS OR SPECIAL CHARACTERS\n";
-            cout << "\n    SELECTION: ";
+            SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+            DrawBoxErrorCheck(4, 8); //Starts the procces to output a message to the user they need to enter a number
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            SetPos(17, 10);
+            cout << "PLEASE ENTER A NUMBER";
+            SetPos(12, 11);
+            cout << "NOT WORDS OR SPECIAL CHARACTERS";
+            Sleep(2000); //Delay to ensure player can read the message box
+            SetPos(0, 0);
+            DrawMainMenu(); //Removes the Message box by drawing main menu over it 
+            
         }
         if (gameselect == 1) {
-            Loadbar();
+            //Loadbar();
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             Sleep(100);
@@ -69,24 +62,47 @@ int main()
             BlackJack(playermoney);
             system("CLS");
         }
-        else if (gameselect == 3) {
-            system("CLS");
-            cout << "Created by Patrick Gleeson\n";
+        else if (gameselect == 3) {  
+            SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+            DrawBoxMedium(9,8);
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            SetPos(13, 11);
+            cout << "Created by Patrick Gleeson";
             Sleep(700);
-            cout << "       April 2023\n";
+            SetPos(20, 12);
+            cout << "April 2023";
             Sleep(700);
-            cout << "   Thanks for Playing!\n";
+            SetPos(13, 14);
+            cout << "First Year Game Dev Student";
+            SetPos(16, 15);
+            SetConsoleTextAttribute(Console, FOREGROUND_RED);
+            cout << "@ Media Design School";
             Sleep(2000);
-            system("CLS");
+            DrawMainMenu();
         }
-        else if (gameselect == 4) {
+        else if (gameselect == 4) 
+        {
             return 0;
         }
-        else if (gameselect > 4 or gameselect < 1) {
-            cout << "    PLEASE ENTER A VALID NUMBER BETWEEN 1 & 4\n";
-            cout << "\n    SELECTION: ";
-            cin >> gameselect; 
-            system("CLS");
+        else if (gameselect > 4 or gameselect < 1)
+        {
+            SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+            DrawBoxErrorCheck(4, 8);
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            SetPos(7, 10);
+            cout << "PLEASE ENTER A VALID NUMBER BETWEEN ";
+            SetConsoleTextAttribute(Console, FOREGROUND_RED);
+            cout << "1";
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            cout << " & ";
+            SetConsoleTextAttribute(Console, FOREGROUND_RED);
+            cout << "4";
+            SetPos(16, 11);
+            cout << gameselect; 
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            cout << " Is not a valid option";
+            Sleep(2000);
+            DrawMainMenu();
         }
     }
     return 0;
