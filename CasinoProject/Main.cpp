@@ -3,9 +3,10 @@
 #include <ctime>
 #define NOMINMAX
 #include <Windows.h>
+#include "General.h"
 #include "SlotMachine.h"
 #include "Blackjack.h"
-
+using namespace std;
 using namespace std;
 
 int main()
@@ -47,8 +48,11 @@ int main()
             DrawMainMenu(); //Removes the Message box by drawing main menu over it 
             
         }
+
         if (gameselect == 1) {
-            //Loadbar();
+            
+           
+            //Loadbar(9,8);
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             Sleep(100);
@@ -56,12 +60,14 @@ int main()
             SlotSpin(playermoney, jackpotpool);
             system("CLS");
         }
+
         else if (gameselect == 2) {
             //Loadbar();
             system("CLS");
             BlackJack(playermoney);
             system("CLS");
         }
+
         else if (gameselect == 3) {  
             SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
             DrawBoxMedium(9,8);
@@ -80,10 +86,17 @@ int main()
             Sleep(2000);
             DrawMainMenu();
         }
+
         else if (gameselect == 4) 
         {
+
+            system("CLS");
+
+            //DrawSlotMachine(5, 3);
+            Sleep(200000);
             return 0;
         }
+
         else if (gameselect > 4 or gameselect < 1)
         {
             SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);

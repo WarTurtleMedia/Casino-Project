@@ -1,8 +1,4 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-//#include <Windows.h>
-#include "General.h"
+
 
 
 using namespace std;

@@ -1,4 +1,4 @@
-#include <iostream>
+
 using namespace std;
 
 void SetPos(int _SetX, int _SetY) //Function for setting Cursor postion 
@@ -19,21 +19,28 @@ void GetPos(int& _GetCordx, int& _GetCordy) //Function for getting the current C
 	int _GetCursorPosy = ConsoleInfo.dwCursorPosition.Y;
 	_GetCordx = _GetCursorPosx;
 	_GetCordy = _GetCursorPosy;
+	cout << _GetCordx << "   " << _GetCordy;
+	return;
+}
+
+void GetPosNoVar() //Function for getting the current Cursor Postion and storing it in a variable
+{
+	HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFO ConsoleInfo;
+	GetConsoleScreenBufferInfo(Console, &ConsoleInfo);
+
+	int _GetCursorPosx = ConsoleInfo.dwCursorPosition.X;
+	int _GetCursorPosy = ConsoleInfo.dwCursorPosition.Y;
+	cout << _GetCursorPosx << "   " << _GetCursorPosy;
 	return;
 }
 
 void DrawBoxMedium(int XPostion, int YPostion) //Draws a box and takes input for X and Y cordinates to help it all be aligned when prinited 
 {
-	int BottomX, TopX, WallX;
-	BottomX = XPostion;
+	int TopX;
 	TopX = XPostion;
-	WallX = XPostion;
-
-
-	int BottomY, TopY, WallY;
-	BottomY = YPostion;
+	int TopY;
 	TopY = YPostion;
-	WallY = YPostion;
 
 	SetPos(TopX, TopY);
 	cout << " ";
@@ -56,6 +63,110 @@ void DrawBoxMedium(int XPostion, int YPostion) //Draws a box and takes input for
 		cout << "_";
 	}
 	cout << "|";
+}
+
+void DrawOuterBox(int XPostion, int YPostion) //Draws a box and takes input for X and Y cordinates to help it all be aligned when prinited 
+{
+	HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+	int TopX;
+	TopX = XPostion;
+	int TopY;
+	TopY = YPostion;
+
+	SetPos(TopX, TopY);
+	cout << " ";
+	for (int r = 0; r < 38; ++r) // Roof of Box
+	{
+		cout << "_";
+	}
+	TopY = TopY + 1; //Adds 1 to the Y value to help set pos
+	
+	SetPos(TopX, TopY);
+
+	for (int c = 0; c < 14; ++c) // Left and Right Wall
+	{
+		cout << "|" << "                                      " << "|";
+		SetPos(TopX, TopY);
+		TopY++;
+	}
+	cout << "|";
+	for (int r = 0; r < 38; ++r) // Floor of box
+	{
+		cout << "_";
+	}
+	cout << "|";
+
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE );
+	SetPos((TopX + 1), (TopY - 4));
+	for (int r = 0; r < 38; ++r) // Top of Balance and Credit Chamber
+	{
+		cout << "_";
+	}
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	SetPos((TopX + 1), (TopY - 6));
+	for (int r = 0; r < 38; ++r) // Bottom of Slot Spinner
+	{
+		cout << "_";
+	}
+	SetPos((TopX + 1), (TopY - 13));
+	for (int r = 0; r < 38; ++r) // Top of Slot Spinner
+	{
+		cout << "_";
+	}
+	TopX = XPostion;
+	TopY = YPostion;
+	int SlotLineY; 
+	SlotLineY = TopY + 3;
+	SetPos((TopX + 13), (TopY + 3));	
+	for (int c = 0; c < 8; ++c) // Left Inner Wall for Spinner 
+	{
+		cout << "|";
+		SetPos((TopX + 13), SlotLineY);
+		++SlotLineY;
+	}
+	SlotLineY = TopY + 3;
+	SetPos((TopX + 26), (TopY + 3));
+	for (int c = 0; c < 8; ++c) // Right Inner Wall for Spinner 
+	{
+		cout << "|";
+		SetPos((TopX + 26), SlotLineY);
+		++SlotLineY;
+	}
+	int BalLineY;
+	BalLineY = TopY + 12;
+	SetPos((TopX + 13), (TopY + 12));
+	for (int c = 0; c < 4; ++c) // Balance Area Wall
+	{
+		cout << "|";
+		SetPos((TopX + 13), BalLineY);
+		++BalLineY;
+	}
+	int JackPotLineY;
+	JackPotLineY = TopY + -2;
+	SetPos((TopX + 29), (TopY - 2));
+	for (int c = 0; c < 4; ++c) // JACKPOT DISPLAY RIGHT WALL 
+	{
+		cout << "|";
+		SetPos((TopX + 29), JackPotLineY);
+		++JackPotLineY;
+	}
+	JackPotLineY = TopY + -2;
+	SetPos((TopX + 10), (TopY - 2));
+	for (int c = 0; c < 4; ++c) // JACKPOT DISPLAY LEFT WALL
+	{
+		cout << "|";
+		SetPos((TopX + 10), JackPotLineY);
+		++JackPotLineY;
+	}
+	TopX = XPostion;
+	TopY = YPostion;
+	SetPos((TopX + 11), (TopY - 3));
+	for (int r = 0; r < 18; ++r) // Top of Balance and Credit Chamber
+	{
+		cout << "_";
+	}
+
 }
 
 void DrawMainMenu()
@@ -140,18 +251,60 @@ void DrawMainMenu()
 	cout << "SELECTION: ";
 }
 
+void DrawSpinnerAnimation()
+{
+
+}
+
+void DrawSlotMachine(int XPostion, int YPostion, int PlayerBal, int JackPot) //int PlayerBal, int JackPot, int randnum1, int randnum2, int randnum3
+{
+	HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
+	DrawOuterBox(XPostion, YPostion); //Draws the outer shell of the box 
+	
+	int TopX;
+	int TopY;
+	TopX = XPostion;
+	TopY = YPostion;
+
+	//Printing the Balance Information to the screen
+	SetPos((TopX + 1), (TopY + 12)); 
+	SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	cout << "Balance"; 
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN); //GOLD TEXT
+	SetPos((TopX + 1), (TopY + 13));
+	cout << "$ ";
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	cout << PlayerBal;
+
+	//Printing the Jackpot Info to the screen
+	SetPos((TopX + 16), (TopY -2));
+	SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	cout << "JACKPOT!";
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN ); //GOLD TEXT
+	SetPos((TopX + 16), (TopY - 1));
+	cout << "$ ";
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+	cout << JackPot;
+	
+	//Printing the Place Bet Area
+	SetPos((TopX + 14), (TopY + 12));
+	SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+	cout << "PLACE BET";
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN); //GOLD TEXT
+	SetPos((TopX + 14), (TopY + 13));
+	cout << "$ ";
+	//SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+
+}
+
+
+
 void DrawBoxErrorCheck(int XPostion, int YPostion) //Draws a box and takes input for X and Y cordinates to help it all be aligned when prinited 
 {
-	int BottomX, TopX, WallX;
-	BottomX = XPostion;
+	int TopX;
 	TopX = XPostion;
-	WallX = XPostion;
-
-
-	int BottomY, TopY, WallY;
-	BottomY = YPostion;
+	int TopY;
 	TopY = YPostion;
-	WallY = YPostion;
 
 	SetPos(TopX, TopY);
 	cout << " ";
@@ -161,7 +314,6 @@ void DrawBoxErrorCheck(int XPostion, int YPostion) //Draws a box and takes input
 	}
 	TopY = TopY + 1; //Adds 1 to the Y value to help set pos
 	SetPos(TopX, TopY);
-	//cout << "\n";
 	for (int c = 0; c < 4; ++c) // Left and Right Wall
 	{
 		cout << "|" << "                                             " << "|";
@@ -176,9 +328,12 @@ void DrawBoxErrorCheck(int XPostion, int YPostion) //Draws a box and takes input
 	cout << "|";
 }
 
-void Loadbar() //Function for loadbar animation 
+void Loadbar(int XPostion, int YPostion) //Function for loadbar animation 
 { 
-	char loadbarblock = 254;
+
+	SetPos(XPostion, YPostion);
+
+	const char loadbarblock = 254;
 	Sleep(100);
 	cout << "[";
 	for (int i = 0; i < 20; i++) {
