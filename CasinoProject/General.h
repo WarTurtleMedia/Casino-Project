@@ -166,6 +166,7 @@ void DrawOuterBox(int XPostion, int YPostion) //Draws a box and takes input for 
 	{
 		cout << "_";
 	}
+	
 
 }
 
@@ -579,4 +580,78 @@ void AnimateSpinEnd(int XPostion, int YPostion, int RandEndNum)
 	{
 		DrawNumberJackPot(_X, _Y);
 	}
+}
+
+void DrawWinScroll(int PosX, int PosY)
+{
+	int TempX = 0;
+	char DrawWin[7] = { '+','+','W','I','N','+','+' };
+
+	for (int j = 0; j < 6; ++j)
+	{
+		SetPos(PosX, PosY);
+		TempX = PosX; //Stores the X Var to clear it after it prinits
+
+		for (int i = 0; i < 7; ++i) //Draw Win
+		{
+			if (PosX < 42)
+			{
+				cout << DrawWin[i];
+				PosX++;
+			}
+			else {
+			}
+		}
+		Sleep(200);
+		SetPos(TempX, PosY);
+		if (PosX < 42)
+		{
+			for (int l = 0; l < 7; ++l)
+			{
+				cout << " ";
+			}
+		}
+		else {
+			cout << "  ";
+		}
+
+	}
+
+}
+
+void DrawLossScroll(int PosX, int PosY)
+{
+	int TempX = 0;
+	char DrawLoss[6] = { '-','L','O','S','S','-'};
+
+	for (int j = 0; j < 6; ++j)
+	{
+		SetPos(PosX, PosY);
+		TempX = PosX; //Stores the X Var to clear it after it prinits
+
+		for (int i = 0; i < 6; ++i) //Draw Win
+		{
+			if (PosX < 42)
+			{
+				cout << DrawLoss[i];
+				PosX++;
+			}
+			else {
+			}
+		}
+		Sleep(200);
+		SetPos(TempX, PosY);
+		if (PosX < 44)
+		{
+			for (int l = 0; l < 6; ++l)
+			{
+				cout << " ";
+			}
+		}
+		else {
+			cout << "  ";
+		}
+
+	}
+
 }
