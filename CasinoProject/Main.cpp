@@ -92,7 +92,11 @@ int main()
 
             system("CLS");
 
-            //DrawSlotMachine(5, 3);
+            cout << "888888888D\n";
+            cout << "       888\n";
+            cout << "   8888   \n";
+            cout << "888       \n";
+            cout << "888888888D\n";
             Sleep(200000);
             return 0;
         }

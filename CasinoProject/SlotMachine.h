@@ -1,7 +1,7 @@
 
 using namespace std;
 
-int CheckSlotWin(int& randnum1, int& randnum2, int& randnum3) 
+int CheckSlotLogic(int& randnum1, int& randnum2, int& randnum3) 
 {
     if (randnum1 >= 1 && randnum1 <= 19) //19% Chance to output '2'
     {
@@ -27,7 +27,7 @@ int CheckSlotWin(int& randnum1, int& randnum2, int& randnum3)
     {
         randnum1 = 7;
     }
-    else if (randnum1 == 100) //1% Chance to output '7'
+    else if (randnum1 == 100) //1% Chance to output 'JACKPOT'
     {
         randnum1 = 100;
     }
@@ -101,11 +101,8 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
     int playerbet = 0;
     char playwin[7] = { '+','+','W','I','N','+','+'};
-    
-    int spinerresult[3]; //Array for Final Randomly generated numbers (Detirmines player outcome)
-    int spinneranimation[3]; //Array for the Randomly Generated Spin animation 
    
-                             
+                   
     //PLAYER STATS
     int spincounter = 0; //MOVE TO MAIN 
     int PlayerTotalLoss = 0;
@@ -113,7 +110,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
     int PlayerTotalBetLifetime = 0;
     int PlayerBagelsBought = 0; 
     
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
 
     while (slotplayagain == true)
     {
@@ -128,70 +125,55 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
        int animationrand2 = (rand() % 7) + 2;
        int animationrand3 = (rand() % 7) + 2;
 
-       spinneranimation[0] = animationrand1;
-       spinneranimation[1] = animationrand2;
-       spinneranimation[2] = animationrand3;
+
 
       //int randnum1 = 100; 
       //int randnum2 = 100;
       //int randnum3 = 100;
 
     
-       DrawSlotMachine(5, 3,playermoney,jackpotpool);
-       Sleep(200000);
+       DrawSlotMachine(5, 3,playermoney,jackpotpool); //Draws the Slot Machine 
+     
+       //Sets the starting screen Numbers for the spin animation
+       AnimateSpinStart(7, 7, animationrand1); //Left Slot
+       AnimateSpinStart(20, 7, animationrand2); //Middle SLot 
+       AnimateSpinStart(33, 7, animationrand3); //Right Slot
 
-        cout << " [" << spinneranimation[0] << "] ";
-        cout << " [" << spinneranimation[1] << "] ";
-        cout << " [" << spinneranimation[2] << "] \n";
-        cout << "\n\n\n\n\n\n\n";
-        cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
-        cout << "Remaining Balance : " << playermoney << "\nYour Bet: ";
-   
+       SetPos(21, 16);
+       SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); //GOLD TEXT 
         while (!(cin >> playerbet)) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            system("CLS");
-            cout << " [" << spinneranimation[0] << "] ";
-            cout << " [" << spinneranimation[1] << "] ";
-            cout << " [" << spinneranimation[2] << "] \n";
-            cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
-            cout << "\n\nPLEASE ENTER A NUMBER NOT WORDS OR SPECIAL CHARACTERS\n";
-            cout << "Remaining Balance : " << playermoney << "\nYour Bet: ";
+            SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+            DrawBoxErrorCheck(4, 8); //Starts the procces to output a message to the user they need to enter a number
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            SetPos(17, 10);
+            cout << "PLEASE ENTER A NUMBER";
+            SetPos(12, 11);
+            cout << "NOT WORDS OR SPECIAL CHARACTERS";
+            Sleep(2000); //Delay to ensure player can read the message box
+            DrawSlotMachine(5, 3, playermoney, jackpotpool);
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); //GOLD TEXT
+            AnimateSpinStart(7, 7, animationrand1); //Left Slot
+            AnimateSpinStart(20, 7, animationrand2); //Middle SLot 
+            AnimateSpinStart(33, 7, animationrand3); //Right Slot
+            SetPos(21, 16);
         }
 
-        system("CLS");
-       
         if (playerbet > 0 && playerbet <= playermoney) { //Error Checking to ensure players bet is a valid number bewteen 0 and their Max Chip ammount 
+           
             playermoney = playermoney - playerbet; //Removing players bet from their total balance 
+
+            DrawSlotMachine(5, 3, playermoney, jackpotpool); //Redraws the Slot Machine with updated Playmoney after their bet
             
-            for (int i = 0; i < 3; ++i)
-            {
-                animationrand1 = (rand() % 7) + 2;
-                animationrand2 = (rand() % 7) + 2;
-                animationrand3 = (rand() % 7) + 2;
-                spinneranimation[0] = animationrand1;
-                spinneranimation[1] = animationrand2;
-                spinneranimation[2] = animationrand3;
-                cout << " [" << spinneranimation[0] << "] ";
-                cout << " [" << spinneranimation[1] << "] ";
-                cout << " [" << spinneranimation[2] << "] \n";
-                cout << "\n\n\n\n\n\n\n";
-                cout << "CURRENT JACKPOT :" << jackpotpool << "\n";
-                cout << "Remaining Balance : " << playermoney << "\nYour Bet: " << playerbet << "\n\n";
-                Sleep(1000);
-                system("CLS");
-            }
+            CheckSlotLogic(randnum1, randnum2, randnum3); // Checks to see if the players numbers match 
             
+           //End Numbers for spin animation to detirmine results 
+            AnimateSpinEnd(7, 7, randnum1); //Left Slot
+            AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+            AnimateSpinEnd(33, 7, randnum3); //Right Slot
 
-            CheckSlotWin(randnum1, randnum2, randnum3); // Checks if the players spin matches any win conditions or if they lost 
-
-            spinerresult[0] = randnum1;
-            spinerresult[1] = randnum2;
-            spinerresult[2] = randnum3;
-            cout << " [" << spinerresult[0] << "] ";
-            cout << " [" << spinerresult[1] << "] ";
-            cout << " [" << spinerresult[2] << "] \n";
-
+            //Checking Win Conditions - If none are met Sets result to loss
             if (randnum1 == 7 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 7 then player earns back 10x their bet
             {
                 cout << "\n";
@@ -200,11 +182,9 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                     Sleep(750);
                     cout << playwin[i];
                 }
-
                 cout << "\n++! TRIPLE SEVENS !++\n";
                 cout << "BET 10X: " << playerbet * 10 << "\n";
                 playermoney = playermoney + (playerbet * 10);
-                
             }
 
             else if (randnum1 == 100 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 100 then player wins the jackpot 
@@ -228,20 +208,19 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 cout << "\n    ++WIN++\n\n\n";
                 cout << "BET 3X: " << playerbet * 3 << "\n";
                 playermoney = playermoney + (playerbet * 3);
-              
             }
             
             else 
             {
-        
+
                 jackpotpool = jackpotpool + playerbet; 
-                cout << "\n     LOSS\n\n\n\n";
-                
+                cout << "\n     LOSS\n\n\n\n";  
             }
             
             cout << "\n\n";
             cout << "CURRENT JACKPOT : " << jackpotpool << "\n";
             cout << "Remaining Balance : " << playermoney;
+            
             if (playermoney > 0) {
                 cout << "\nYour Bet: ";
                 cin >> slotplayagain;

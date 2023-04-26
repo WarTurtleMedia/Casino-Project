@@ -297,8 +297,6 @@ void DrawSlotMachine(int XPostion, int YPostion, int PlayerBal, int JackPot) //i
 
 }
 
-
-
 void DrawBoxErrorCheck(int XPostion, int YPostion) //Draws a box and takes input for X and Y cordinates to help it all be aligned when prinited 
 {
 	int TopX;
@@ -349,3 +347,236 @@ void Loadbar(int XPostion, int YPostion) //Function for loadbar animation
 	system("CLS");
 }
 
+void DrawNumberTwo(int XPostion, int YPostion)
+{
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+	SetPos(_X, _Y);
+	cout << "888888888D";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "       888";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "   8888   ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "888       ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "888888888D";
+}
+
+void DrawNumberThree(int XPostion, int YPostion)
+{
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+	SetPos(_X, _Y);
+	cout << "C88888888D";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "        88";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "    C8888D";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "        88";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "C88888888D";
+}
+
+void DrawNumberFour(int XPostion, int YPostion)
+{
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+	SetPos(_X, _Y);
+	cout << "      888D ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "   888  88 ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "888     88";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "8888888888";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "        88 ";
+}
+
+void DrawNumberFive(int XPostion, int YPostion)
+{
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+	SetPos(_X, _Y);
+	cout << "C88888888D";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "88        ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "C88888888D";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "        88";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "C88888888D";
+}
+
+void DrawNumberSix(int XPostion, int YPostion)
+{
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+	SetPos(_X, _Y);
+	cout << " C8888888D";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "88        ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "C88888888D";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "88      88";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << " C888888D ";
+}
+
+void DrawNumberSeven(int XPostion, int YPostion)
+{
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+	SetPos(_X, _Y);
+	cout << "C88888888D";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "       88 ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "     88   ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "   88     ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << " 88       ";
+}
+
+void DrawNumberJackPot(int XPostion, int YPostion)
+{
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+	SetPos(_X, _Y);
+	cout << " JACKPOT! ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "          ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << " JACKPOT! ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "          ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << " JACKPOT! ";
+
+}
+
+void AnimateSpinStart(int XPostion, int YPostion, int RandAnimationNum)
+{
+	HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); //GOLD TEXT
+	
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+
+	if (RandAnimationNum == 2)
+	{
+		DrawNumberTwo(_X, _Y);
+	}
+	else if (RandAnimationNum == 3)
+	{
+		DrawNumberThree(_X, _Y);
+	}
+	else if (RandAnimationNum == 4)
+	{
+		DrawNumberFour(_X, _Y);
+	}
+	else if (RandAnimationNum == 5)
+	{
+		DrawNumberFive(_X, _Y);
+	}
+	else if (RandAnimationNum == 6)
+	{
+		DrawNumberSix(_X, _Y);
+	}
+	else if (RandAnimationNum == 7)
+	{
+		DrawNumberSeven(_X, _Y);
+	}
+	else if (RandAnimationNum == 8)
+	{
+		DrawNumberJackPot(_X, _Y);
+	}
+}
+
+void AnimateSpinEnd(int XPostion, int YPostion, int RandEndNum)
+{
+	HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); //GOLD TEXT
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+
+	if (RandEndNum == 2)
+	{
+		DrawNumberTwo(_X, _Y);
+	}
+	else if (RandEndNum == 3)
+	{
+		DrawNumberThree(_X, _Y);
+	}
+	else if (RandEndNum == 4)
+	{
+		DrawNumberFour(_X, _Y);
+	}
+	else if (RandEndNum == 5)
+	{
+		DrawNumberFive(_X, _Y);
+	}
+	else if (RandEndNum == 6)
+	{
+		DrawNumberSix(_X, _Y);
+	}
+	else if (RandEndNum == 7)
+	{
+		DrawNumberSeven(_X, _Y);
+	}
+	else if (RandEndNum == 100)
+	{
+		DrawNumberJackPot(_X, _Y);
+	}
+}
