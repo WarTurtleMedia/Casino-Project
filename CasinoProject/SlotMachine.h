@@ -99,9 +99,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
     bool slotplayagain = true; 
 
     int playerbet = 0;
-   
-    int SpinCounterTemp = 0;
-                 
+           
     //PLAYER STATS
     int spincounter = 0; //MOVE TO MAIN 
     int PlayerTotalLoss = 0;
@@ -110,10 +108,15 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
     int PlayerBagelsBought = 0; 
     
     HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
-
+    int TempRandOutCome1 = 0;
+    int TempRandOutCome2 = 0;
+    int TempRandOutCome3 = 0;
+    int TempRandOutAnimate1 = 0;
+    int TempRandOutAnimate2 = 0;
+    int TempRandOutAnimate3 = 0;
+    int SpinCounterTemp = 0;
     while (slotplayagain == true)
     {
-
        // Creating the Random Numbers 
        srand(time(0)); 
        int randnum1 = (rand() % 99) + 1; //Slot Machine Numbers 
@@ -128,28 +131,33 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
       //int randnum2 = 100;
       //int randnum3 = 100;
 
-       
-       if (SpinCounterTemp < 1) {
-           DrawSlotMachine(5, 3, playermoney, jackpotpool); //Draws the Slot Machine 
+       DrawSlotMachine(5, 3, playermoney, jackpotpool); //Draws the Slot Machine 
+       if (SpinCounterTemp < 1 ) { //Draws the Slot Machine with random starting numbers once then doesnt redraw if player plays again in this session 
            //Sets the starting screen Numbers for the spin animation
            AnimateSpinStart(7, 7, animationrand1); //Left Slot
            AnimateSpinStart(20, 7, animationrand2); //Middle SLot 
            AnimateSpinStart(33, 7, animationrand3); //Right Slot
        }
+       else 
+       { 
+           AnimateSpinStart(7, 7, TempRandOutCome1); //Left Slot
+           AnimateSpinStart(20, 7, TempRandOutCome2); //Middle SLot 
+           AnimateSpinStart(33, 7, TempRandOutCome3); //Right Slot
+       }
       
-
        SetPos(21, 16); //Sets the Cursor postion to the correct placement for the player to enter their bet 
        SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); //GOLD TEXT 
         
-       while (!(cin >> playerbet)) { //Error Checking for characters and strings
+       while (!(cin >> playerbet)) //Error Checking for characters and strings
+       { 
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-            DrawBoxErrorCheck(4, 8); //Starts the procces to output a message to the user they need to enter a number
+            DrawBoxErrorCheck(2, 8); //Starts the procces to output a message to the user they need to enter a number
             SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
-            SetPos(17, 10);
+            SetPos(15, 10);
             cout << "PLEASE ENTER A NUMBER";
-            SetPos(12, 11);
+            SetPos(10, 11);
             cout << "NOT WORDS OR SPECIAL CHARACTERS";
             Sleep(2000); //Delay to ensure player can read the message box
             DrawSlotMachine(5, 3, playermoney, jackpotpool);
@@ -157,6 +165,19 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             AnimateSpinStart(7, 7, animationrand1); //Left Slot
             AnimateSpinStart(20, 7, animationrand2); //Middle SLot 
             AnimateSpinStart(33, 7, animationrand3); //Right Slot
+            
+            if (SpinCounterTemp < 1) 
+            {
+                AnimateSpinStart(7, 7, animationrand1); //Left Slot
+                AnimateSpinStart(20, 7, animationrand2); //Middle SLot 
+                AnimateSpinStart(33, 7, animationrand3); //Right Slot
+            }
+            else 
+            { 
+                AnimateSpinStart(7, 7, TempRandOutCome1); //Left Slot
+                AnimateSpinStart(20, 7, TempRandOutCome2); //Middle SLot 
+                AnimateSpinStart(33, 7, TempRandOutCome3); //Right Slot
+            }
             SetPos(21, 16);
         }
 
@@ -165,15 +186,19 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             playermoney = playermoney - playerbet; //Removing players bet from their total balance 
 
             DrawSlotMachine(5, 3, playermoney, jackpotpool); //Redraws the Slot Machine with updated Playmoney after their bet
-            
             CheckSlotLogic(randnum1, randnum2, randnum3); // Checks to see if the players numbers match 
             
+
+
+
            //End Numbers for spin animation to detirmine results 
             AnimateSpinEnd(7, 7, randnum1); //Left Slot
             AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
             AnimateSpinEnd(33, 7, randnum3); //Right Slot
 
             //Checking Win Conditions - If none are met Sets result to loss
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN); //GOLD TEXT 
+
             if (randnum1 == 7 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 7 then player earns back 10x their bet
             {
                 for (int l = 0; l < 3; ++l) 
@@ -229,8 +254,16 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 }
                 SpinCounterTemp++;
                 jackpotpool = jackpotpool + playerbet; 
-           
             }
+           
+
+            TempRandOutCome1 = randnum1;
+            TempRandOutCome2 = randnum2;
+            TempRandOutCome3 = randnum3;
+
+            TempRandOutAnimate1 = animationrand1;//////////////////MIGHT REMOVE************************
+            TempRandOutAnimate2 = animationrand2;
+            TempRandOutAnimate3 = animationrand3;
 
             DrawSlotMachine(5, 3, playermoney, jackpotpool); //Updates PlayerMoney and Jackpot to the visuals
             AnimateSpinEnd(7, 7, randnum1); //Left Slot
@@ -238,21 +271,19 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             AnimateSpinEnd(33, 7, randnum3); //Right Slot
 
             if (playermoney > 0) {
-                //cout << "\nYour Bet: ";
                 SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-                DrawBoxErrorCheck(4, 8); //Starts the procces to output a message to the user they need to enter a number
+                DrawBoxErrorCheck(2, 8); //Starts the procces to output a message to the user they need to enter a number
                 SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
-                SetPos(22, 10);
+                SetPos(20, 10);
                 cout << "PLAY AGAIN ?";
-                SetPos(22, 11);
+                SetPos(20, 11);
                 cout << "Y / N : ";
                 cin >> slotplayagain;
                 DrawSlotMachine(5, 3, playermoney, jackpotpool);
                 AnimateSpinEnd(7, 7, randnum1); //Left Slot
                 AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
                 AnimateSpinEnd(33, 7, randnum3); //Right Slot
-                SetPos(21, 16);
-              
+
             }
             else {
                 cout << "YOU ARE OUT OF MONEY PLEASE COME AGAIN";
@@ -262,25 +293,27 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             }
 
         }
-        else { //Error Checking to ensure players bet is a valid number bewteen 0 and their Max Chip ammount 
-       
-        cout << "--ERROR--\n" << playerbet << " Is a invalid ammount\n";
-        cout << "Please enter a valid ammount between 1 & " << playermoney << "\n";
-        cout << "Procced in ";
-
-        for (int i = 5; i >= 0; --i) { //Countdown Timer to ensure the player reads the message (5 Seconds)
-            cout << i << " "; 
-            Sleep(1000); 
-            
-            if (i == 0) {
-                system("CLS"); //Clears the screen once the timer hits 0 
-                playerbet;
-                }
-            }
+        else //Error Checking to ensure players bet is a valid number bewteen 0 and their Max Chip ammount 
+        { 
+            SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+            DrawBoxErrorCheck(2, 8); //Starts the procces to output a message to the user they need to enter a number
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            SetPos(21, 9);
+            cout << "--ERROR--";
+            SetPos(14, 10);
+            cout << playerbet << " Is a invalid ammount";
+            SetPos(3, 11);
+            cout << "Please enter a valid ammount between " ;
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); //GOLD TEXT 
+            cout << "1";
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+            cout << " & ";
+            SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); //GOLD TEXT 
+            cout << playermoney;
+            Sleep(3000);   
         }
     }
     return playermoney, jackpotpool;
-
 }
 
 

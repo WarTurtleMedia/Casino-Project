@@ -20,7 +20,6 @@ void BlackJack(int& playermoney) {
 	int sumover21;
 
 
-
 	int playerhand[5]= {0, 0, 0, 0 ,0};
 	int sum = 0; 
 	int test; //remove at some point 

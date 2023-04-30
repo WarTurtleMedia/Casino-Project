@@ -1,4 +1,3 @@
-
 using namespace std;
 
 void SetPos(int _SetX, int _SetY) //Function for setting Cursor postion 
@@ -166,8 +165,27 @@ void DrawOuterBox(int XPostion, int YPostion) //Draws a box and takes input for 
 	{
 		cout << "_";
 	}
-	
-
+	int ClearLine;
+	TopX = XPostion;
+	TopY = YPostion;
+	ClearLine = TopY;
+	SetPos((TopX ), (TopY));
+	for (int r = 0; r < 18; ++r) // Clearing Overlap from Popups
+	{
+		SetPos((TopX-3), (ClearLine));
+		cout << "   " << "\n";
+		ClearLine++;
+	}
+	TopX = XPostion;
+	TopY = YPostion;
+	ClearLine = TopY;
+	SetPos((TopX), (TopY));
+	for (int r = 0; r < 18; ++r)  // Clearing Overlap from Popups
+	{
+		SetPos((TopX + 40), (ClearLine));
+		cout << "       " << "\n";
+		ClearLine++;
+	}
 }
 
 void DrawMainMenu()
@@ -653,5 +671,66 @@ void DrawLossScroll(int PosX, int PosY)
 		}
 
 	}
+
+}
+
+void DrawWinMultiplier(int PosX, int PosY, int WinOutCome)
+{
+	int TempX = 0;
+	char Draw3xWin[2] = {'3','x'};
+	char Draw5xWin[2] = {'5','x'};
+	char Draw10xWin[6] = {'1','0','x'};
+	char DrawJackPotWin[7] = { 'J','A','C','K','P','O','T' };
+
+	if (WinOutCome = 1) //Draws 3x Win 
+	{
+		for (int j = 0; j < 6; ++j)
+		{
+			SetPos(PosX, PosY);
+			TempX = PosX; //Stores the X Var to clear it after it prinits
+
+			for (int i = 0; i < 6; ++i) //Draw Win
+			{
+				if (PosX < 42)
+				{
+					cout << Draw3xWin[i];
+					PosX++;
+				}
+				else {
+				}
+			}
+			Sleep(200);
+			SetPos(TempX, PosY);
+			if (PosX < 44)
+			{
+				for (int l = 0; l < 6; ++l)
+				{
+					cout << " ";
+				}
+			}
+			else {
+				cout << "  ";
+			}
+
+		}
+
+
+	}
+	else if (WinOutCome = 2) //Draws 5x Win 
+	{
+
+
+	}
+	else if (WinOutCome = 3) //Draws 10x Win 
+	{
+
+
+	}
+	else if (WinOutCome = 4) //Draws JackPot
+	{
+
+
+	}
+	
 
 }
