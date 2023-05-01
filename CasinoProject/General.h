@@ -679,17 +679,16 @@ void DrawWinMultiplier(int PosX, int PosY, int WinOutCome)
 	int TempX = 0;
 	char Draw3xWin[2] = {'3','x'};
 	char Draw5xWin[2] = {'5','x'};
-	char Draw10xWin[6] = {'1','0','x'};
-	char DrawJackPotWin[7] = { 'J','A','C','K','P','O','T' };
+	char Draw10xWin[3] = {'1','0','x'};
 
-	if (WinOutCome = 1) //Draws 3x Win 
+	if (WinOutCome == 1) //Draws 3x Win 
 	{
-		for (int j = 0; j < 6; ++j)
+		for (int j = 0; j < 22; ++j)
 		{
 			SetPos(PosX, PosY);
 			TempX = PosX; //Stores the X Var to clear it after it prinits
 
-			for (int i = 0; i < 6; ++i) //Draw Win
+			for (int i = 0; i < 2; ++i) //Draw Win
 			{
 				if (PosX < 42)
 				{
@@ -699,9 +698,9 @@ void DrawWinMultiplier(int PosX, int PosY, int WinOutCome)
 				else {
 				}
 			}
-			Sleep(200);
+			Sleep(50);
 			SetPos(TempX, PosY);
-			if (PosX < 44)
+			if (PosX < 42)
 			{
 				for (int l = 0; l < 6; ++l)
 				{
@@ -711,26 +710,107 @@ void DrawWinMultiplier(int PosX, int PosY, int WinOutCome)
 			else {
 				cout << "  ";
 			}
-
 		}
-
-
 	}
-	else if (WinOutCome = 2) //Draws 5x Win 
+	else if (WinOutCome == 2) //Draws 5x Win 
 	{
+		for (int j = 0; j < 22; ++j)
+		{
+			SetPos(PosX, PosY);
+			TempX = PosX; //Stores the X Var to clear it after it prinits
 
-
+			for (int i = 0; i < 2; ++i) //Draw Win
+			{
+				if (PosX < 42)
+				{
+					cout << Draw5xWin[i];
+					PosX++;
+				}
+				else {
+				}
+			}
+			Sleep(50);
+			SetPos(TempX, PosY);
+			if (PosX < 42)
+			{
+				for (int l = 0; l < 6; ++l)
+				{
+					cout << " ";
+				}
+			}
+			else {
+				cout << "  ";
+			}
+		}
 	}
-	else if (WinOutCome = 3) //Draws 10x Win 
+	else if (WinOutCome == 3) //Draws 10x Win 
 	{
+		for (int j = 0; j < 14; ++j)
+		{
+			SetPos(PosX, PosY);
+			TempX = PosX; //Stores the X Var to clear it after it prinits
 
-
+			for (int i = 0; i < 3; ++i) //Draw Win
+			{
+				if (PosX < 42)
+				{
+					cout << Draw10xWin[i];
+					PosX++;
+				}
+				else {
+				}
+			}
+			Sleep(50);
+			SetPos(TempX, PosY);
+			if (PosX < 42)
+			{
+				for (int l = 0; l < 3; ++l)
+				{
+					cout << " ";
+				}
+			}
+			else {
+				cout << "   ";
+			}
+		}
 	}
-	else if (WinOutCome = 4) //Draws JackPot
-	{
 
+}
 
-	}
+void CheckPlayAgain(string _PlayAgain, bool& Loop)
+{
+	HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE);
+	int _PlayAgainLoop = 1; 
 	
+	while (_PlayAgainLoop == 1)
+	if (_PlayAgain == "Yes" or _PlayAgain == "YEs" or _PlayAgain == "YES" or _PlayAgain == "yES" or _PlayAgain == "yEs" or _PlayAgain == "yeS" 
+		or _PlayAgain == "YeS" or _PlayAgain == "yes" or _PlayAgain == "Y" or _PlayAgain == "y")
+	{
+		Loop = true;
+		_PlayAgainLoop = 0;
+	}
+	else if (_PlayAgain == "No" or _PlayAgain == "no" or _PlayAgain == "N" or _PlayAgain == "n" or _PlayAgain == "nO" or _PlayAgain == "NO") //Ends Slot Machine if 
+	{
+		Loop = false; 
+		_PlayAgainLoop = 0;
+	}
+	else
+	{
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		SetConsoleTextAttribute(Console, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+		DrawBoxErrorCheck(2, 8); //Starts the procces to output a message to the user they need to enter a number
+		SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_INTENSITY);
+		SetPos(5, 10);
+		cout << "PLEASE ENTER A VARIATION OF 'YES' OR 'NO'";
+		Sleep(2000); //Delay to ensure player can read the message box
+		SetPos(5, 10);
+		cout << "                                         ";
+		SetPos(20, 10);
+		cout << "PLAY AGAIN ?";
+		SetPos(20, 11);
+		cout << "Y / N : ";
+		cin >> _PlayAgain;
 
+	}
 }

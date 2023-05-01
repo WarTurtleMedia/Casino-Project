@@ -96,7 +96,8 @@ int CheckSlotLogic(int& randnum1, int& randnum2, int& randnum3)
 
 int SlotSpin(int& playermoney, int& jackpotpool) {
 
-    bool slotplayagain = true; 
+    bool SlotsLoop = true; 
+    string PlayAgain; 
 
     int playerbet = 0;
            
@@ -115,7 +116,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
     int TempRandOutAnimate2 = 0;
     int TempRandOutAnimate3 = 0;
     int SpinCounterTemp = 0;
-    while (slotplayagain == true)
+    while (SlotsLoop == true)
     {
        // Creating the Random Numbers 
        srand(time(0)); 
@@ -201,10 +202,12 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
             if (randnum1 == 7 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 7 then player earns back 10x their bet
             {
-                for (int l = 0; l < 3; ++l) 
+                for (int l = 0; l < 2; ++l) 
                 {
                     DrawWinScroll(6, 13);
+                    DrawWinMultiplier(6, 13, 3);
                 }
+                
                 SpinCounterTemp++;
                 //cout << "\n++! TRIPLE SEVENS !++\n";
                 //cout << "BET 10X: " << playerbet * 10 << "\n";
@@ -213,10 +216,11 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
             else if (randnum1 == 100 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 100 then player wins the jackpot 
             {
-                for (int l = 0; l < 3; ++l)
+                for (int l = 0; l < 2; ++l)
                 {
                     DrawWinScroll(6, 13);
                 }
+                
                 SpinCounterTemp++;
                 //cout << "  +! - JACKPOT - !+\n\n\n";
                 playermoney = playermoney + jackpotpool;
@@ -225,24 +229,25 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
             else if (randnum1 == randnum2 && randnum1 == randnum3 && randnum1 != 7 && randnum1 != 100) //If three numbers are Equal then player earns back 5x their bet
             {
-                for (int l = 0; l < 3; ++l)
+                for (int l = 0; l < 2; ++l)
                 {
                     DrawWinScroll(6, 13);
+                    DrawWinMultiplier(6, 13, 2);
                 }
+               
                 SpinCounterTemp++;
-                //cout << "BET 5X:" << playerbet * 5 << "\n";
                 playermoney = playermoney + (playerbet * 5);
                 
             }
   
             else if (randnum1 == randnum2 or randnum1 == randnum3 or randnum3 == randnum2) //If two numbers are Equal then player earns back 3x their bet
             {
-                for (int l = 0; l < 3; ++l)
+                for (int l = 0; l < 2; ++l)
                 {
                     DrawWinScroll(6, 13);
+                    DrawWinMultiplier(6, 13, 1);
                 }
                 SpinCounterTemp++;
-                //cout << "BET 3X: " << playerbet * 3 << "\n";
                 playermoney = playermoney + (playerbet * 3);
             }
             
@@ -252,6 +257,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 {
                     DrawLossScroll(6, 13);
                 }
+                
                 SpinCounterTemp++;
                 jackpotpool = jackpotpool + playerbet; 
             }
@@ -277,8 +283,9 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 SetPos(20, 10);
                 cout << "PLAY AGAIN ?";
                 SetPos(20, 11);
-                cout << "Y / N : ";
-                cin >> slotplayagain;
+                cout << "Y / N : ";         
+                cin >> PlayAgain;
+                CheckPlayAgain(PlayAgain, SlotsLoop);
                 DrawSlotMachine(5, 3, playermoney, jackpotpool);
                 AnimateSpinEnd(7, 7, randnum1); //Left Slot
                 AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
@@ -291,7 +298,6 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
                 system("CLS");
                 return playermoney, jackpotpool;
             }
-
         }
         else //Error Checking to ensure players bet is a valid number bewteen 0 and their Max Chip ammount 
         { 
