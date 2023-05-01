@@ -188,9 +188,6 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
             DrawSlotMachine(5, 3, playermoney, jackpotpool); //Redraws the Slot Machine with updated Playmoney after their bet
             CheckSlotLogic(randnum1, randnum2, randnum3); // Checks to see if the players numbers match 
-            
-
-
 
            //End Numbers for spin animation to detirmine results 
             AnimateSpinEnd(7, 7, randnum1); //Left Slot
