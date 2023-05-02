@@ -7,7 +7,7 @@
 #include "SlotMachine.h"
 #include "Blackjack.h"
 using namespace std;
-using namespace std;
+
 
 int main()
 {
@@ -89,15 +89,6 @@ int main()
 
         else if (gameselect == 4) 
         {
-
-            system("CLS");
-
-            cout << "888888888D\n";
-            cout << "       888\n";
-            cout << "   8888   \n";
-            cout << "888       \n";
-            cout << "888888888D\n";
-            Sleep(200000);
             return 0;
         }
 

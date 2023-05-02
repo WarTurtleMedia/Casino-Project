@@ -498,6 +498,28 @@ void DrawNumberSeven(int XPostion, int YPostion)
 	cout << " 88       ";
 }
 
+void DrawNumberBlank(int XPostion, int YPostion)
+{
+	int _Y;
+	int _X;
+	_X = XPostion;
+	_Y = YPostion;
+	SetPos(_X, _Y);
+	cout << "          ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "          ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "          ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "          ";
+	++_Y;
+	SetPos(_X, _Y);
+	cout << "          ";
+}
+
 void DrawNumberJackPot(int XPostion, int YPostion)
 {
 	int _Y;

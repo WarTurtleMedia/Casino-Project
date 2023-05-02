@@ -148,7 +148,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
       
        SetPos(21, 16); //Sets the Cursor postion to the correct placement for the player to enter their bet 
        SetConsoleTextAttribute(Console, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY); //GOLD TEXT 
-        
+       
        while (!(cin >> playerbet)) //Error Checking for characters and strings
        { 
             cin.clear();
@@ -166,6 +166,7 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             AnimateSpinStart(7, 7, animationrand1); //Left Slot
             AnimateSpinStart(20, 7, animationrand2); //Middle SLot 
             AnimateSpinStart(33, 7, animationrand3); //Right Slot
+         
             
             if (SpinCounterTemp < 1) 
             {
@@ -182,6 +183,9 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             SetPos(21, 16);
         }
 
+     
+
+
         if (playerbet > 0 && playerbet <= playermoney) { //Error Checking to ensure players bet is a valid number bewteen 0 and their Max Chip ammount 
            
             playermoney = playermoney - playerbet; //Removing players bet from their total balance 
@@ -189,6 +193,37 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
             DrawSlotMachine(5, 3, playermoney, jackpotpool); //Redraws the Slot Machine with updated Playmoney after their bet
             CheckSlotLogic(randnum1, randnum2, randnum3); // Checks to see if the players numbers match 
 
+            for (int a = 0; a < 7; ++a) //Animating the slot "Spinning"
+            {
+                animationrand1 = (rand() % 7) + 2; //Slot Machine randomly generated numbers for Spinning effect
+                animationrand2 = (rand() % 7) + 2;
+                animationrand3 = (rand() % 7) + 2;
+                AnimateSpinStart(7, 7, animationrand1);
+                AnimateSpinStart(20, 7, animationrand2);
+                AnimateSpinStart(33, 7, animationrand3);
+                Sleep(200);
+            }
+            AnimateSpinEnd(7, 7, randnum1);
+            for (int a = 0; a < 5; ++a) //Animating the slot "Spinning"
+            {
+                //Slot Machine randomly generated numbers for Spinning effect
+                animationrand2 = (rand() % 7) + 2;
+                animationrand3 = (rand() % 7) + 2;
+                AnimateSpinStart(20, 7, animationrand2);
+                AnimateSpinStart(33, 7, animationrand3);
+                Sleep(200);
+            }
+            AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+            for (int a = 0; a < 5; ++a) //Animating the slot "Spinning"
+            {
+                //Slot Machine randomly generated numbers for Spinning effect
+                animationrand3 = (rand() % 7) + 2;
+                AnimateSpinStart(33, 7, animationrand3);
+                Sleep(200);
+            }
+
+
+            
            //End Numbers for spin animation to detirmine results 
             AnimateSpinEnd(7, 7, randnum1); //Left Slot
             AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
@@ -199,6 +234,20 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
             if (randnum1 == 7 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 7 then player earns back 10x their bet
             {
+                for (int f = 0; f < 5; ++f)
+                {
+                    AnimateSpinEnd(7, 7, randnum1); //Left Slot
+                    AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+                    AnimateSpinEnd(33, 7, randnum3);
+                    Sleep(500);
+                    DrawNumberBlank(7, 7);
+                    DrawNumberBlank(20, 7);
+                    DrawNumberBlank(33, 7);
+                    Sleep(500);
+                }
+                AnimateSpinEnd(7, 7, randnum1); //Left Slot
+                AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+                AnimateSpinEnd(33, 7, randnum3); //Right Slot
                 for (int l = 0; l < 2; ++l) 
                 {
                     DrawWinScroll(6, 13);
@@ -213,6 +262,20 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
             else if (randnum1 == 100 && randnum1 == randnum2 && randnum1 == randnum3) //If three numbers are Equal to 100 then player wins the jackpot 
             {
+                for (int f = 0; f < 5; ++f)
+                {
+                    AnimateSpinEnd(7, 7, randnum1); //Left Slot
+                    AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+                    AnimateSpinEnd(33, 7, randnum3);
+                    Sleep(500);
+                    DrawNumberBlank(7, 7);
+                    DrawNumberBlank(20, 7);
+                    DrawNumberBlank(33, 7);
+                    Sleep(500);
+                }
+                AnimateSpinEnd(7, 7, randnum1); //Left Slot
+                AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+                AnimateSpinEnd(33, 7, randnum3); //Right Slot
                 for (int l = 0; l < 2; ++l)
                 {
                     DrawWinScroll(6, 13);
@@ -226,6 +289,20 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
 
             else if (randnum1 == randnum2 && randnum1 == randnum3 && randnum1 != 7 && randnum1 != 100) //If three numbers are Equal then player earns back 5x their bet
             {
+                for (int f = 0; f < 5; ++f)
+                {
+                    AnimateSpinEnd(7, 7, randnum1); //Left Slot
+                    AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+                    AnimateSpinEnd(33, 7, randnum3);
+                    Sleep(500);
+                    DrawNumberBlank(7, 7);
+                    DrawNumberBlank(20, 7);
+                    DrawNumberBlank(33, 7);
+                    Sleep(500);
+                }
+                AnimateSpinEnd(7, 7, randnum1); //Left Slot
+                AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+                AnimateSpinEnd(33, 7, randnum3); //Right Slot
                 for (int l = 0; l < 2; ++l)
                 {
                     DrawWinScroll(6, 13);
@@ -239,6 +316,20 @@ int SlotSpin(int& playermoney, int& jackpotpool) {
   
             else if (randnum1 == randnum2 or randnum1 == randnum3 or randnum3 == randnum2) //If two numbers are Equal then player earns back 3x their bet
             {
+                for (int f = 0; f < 5; ++f)
+                {
+                    AnimateSpinEnd(7, 7, randnum1); //Left Slot
+                    AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+                    AnimateSpinEnd(33, 7, randnum3);
+                    Sleep(500);
+                    DrawNumberBlank(7, 7);
+                    DrawNumberBlank(20, 7);
+                    DrawNumberBlank(33, 7);
+                    Sleep(500);
+                }
+                AnimateSpinEnd(7, 7, randnum1); //Left Slot
+                AnimateSpinEnd(20, 7, randnum2); //Middle SLot 
+                AnimateSpinEnd(33, 7, randnum3); //Right Slot
                 for (int l = 0; l < 2; ++l)
                 {
                     DrawWinScroll(6, 13);
